@@ -1,1 +1,111 @@
-Hello World
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <img src="./img/logo-meghna.png" alt="">
+    <h1>野子科技API文档</h1>
+
+
+    <h2>目录</h2>
+    <ul>
+        <li>
+            <a href="#intro">概述</a>
+        </li>
+        <li>
+            <a href="#info">全局参数</a>
+        </li>
+        <li>
+            <a href="#sign">签名算法</a>
+        </li>
+        <li>
+            <a href="#info">比赛详情接口</a>
+        </li>
+
+    </ul>
+
+
+    <a id="intro"></a>
+    <h2>
+        概述
+    </h2>
+    <ul>
+        <li>
+            此文档为野子科电竞API文档，用于对接野子科技电竞接口数据。
+        </li>
+        <li>
+            API支持http/https协议，遵循RESTfulAPI规范。
+        </li>
+        <li>
+            API域名为 https://api.xxe.io/
+        </li>
+        <li>
+            所有API的调用需要传appKey参数、sign参数、timestamp参数，具体传值方法见下方接口介绍。 
+        </li>
+        <li>
+            <span style="color:red;">appSecret用于服务端计算生成签名sign值，不可以对外暴露。对于接入方的appSecret暴露引发的任何，野子科技不负责任。</span>
+        </li>
+        <li>
+            野子科技合作热线：8888888
+        </li>
+    </ul>
+
+
+    <h2>
+        全局参数
+    </h2>
+    <p>全局参数每个API都需要传递，只会在比赛详情接口中做出示例，其他接口不会给出具体值，需要接入方自行计算</p>
+    <table>
+        <tr>
+            <th>参数</th>
+            <th>类型</th>
+            <th>是否必填</th>
+            <th>备注</th>
+        </tr>
+        <tr>
+            <td>appKey</td>
+            <td>string</td>
+            <td>是</td>
+            <td>每个接入方都会有一个我们颁发的appKey参数，该参数是接入方的一个唯一id</td>
+        </tr>
+        <tr>
+            <td>sign</td>
+            <td>string</td>
+            <td>是</td>
+            <td>签名字符串，是服务端通过<a href="#">算法</a>计算出来的32位小写md5值</td>
+        </tr>
+        <tr>
+            <td>timestamp</td>
+            <td>string</td>
+            <td>是</td>
+            <td>请求接口时间。即请求发起时的10位时间戳，API服务器会校验该时间，如果超时则报错</td>
+        </tr>
+    </table>
+
+    <h2>签名算法</h2>
+    <ul>
+        <li>
+            所有请求必须在body或者query（这个依赖于接口时POST还是GET）中传递appKey，sign，timestamp 这3个参数，如果不传，或者传错会通不过安全校验
+        </li>
+        <li>
+            sign是由body（POST请求）或者query（GET请求）的参数经过参数名称sort排序后，md5加密后得到的<br>
+            例如：接入方的appSecret是123456，此时时间是2017/1/1 0:0:0，这时候请求id为lgd的战队详情接口，那么完整的请求地址为：<br>
+            /teams?appKey=88888888&id=lgd&sign=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&timestamp=1483200000<br>
+            xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx的值是字符串：88888888、123456、lgd、1483200000 拼接起来后md5得到的：<br>
+            3afb87269b67f6def2b6e583b21f6596
+        </li>
+    </ul>
+
+
+    <h3>比赛详情接口</h3>
+    GET /games?id=:id <br>
+    示例：https://api.xxe.io/games?id=1111
+    
+
+
+</body>
+</html>
