@@ -93,19 +93,28 @@
         </li>
         <li>
             sign是由body（POST请求）或者query（GET请求）的参数经过参数名称sort排序后，md5加密后得到的<br>
-            例如：接入方的appSecret是123456，此时时间是2017/1/1 0:0:0，这时候请求id为lgd的战队详情接口，那么完整的请求地址为：<br>
-            /teams?appKey=88888888&id=lgd&sign=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&timestamp=1483200000<br>
-            xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx的值是字符串：88888888、123456、lgd、1483200000 拼接起来后md5得到的：<br>
-            3afb87269b67f6def2b6e583b21f6596
+            例如：接入方的appSecret是123456，此时时间是2017/1/1 0:0:0，这时候请求id为11027的比赛详情接口，那么完整的请求地址为：<br>
+            /games/11027?appKey=88888888&sign=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&timestamp=1599573294<br>
+            xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx的值是字符串：【appKey=88888888&appSecret=这个值是私有的请联系服务商提供&id=11027&timestamp=1599573294】 md5加密得到的<br>
         </li>
     </ul>
 
 
     <h3>比赛详情接口</h3>
-    GET /games?id=:id <br>
-    示例：https://api.xxe.io/games?id=1111
+    GET /games/:id <br>
+    示例：https://api.xxe.io/games/11027?appKey=88888888&timestamp=1599573294&sign=这个值是私有的请联系服务商提供
     
+    <h3>赛事详情接口</h3>
+    GET /matches/:id
 
+    <h3>国家接口</h3>
+    GET /countries/:id
+
+    <h3>战队接口</h3>
+    GET /teams/:id
+
+    <h3>队员接口</h3>
+    GET /players/:id
 
 </body>
 </html>
